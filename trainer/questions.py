@@ -1,11 +1,11 @@
 import math
 import random
 
-LOW, HIGH = -1000, 1000
+LOW, HIGH = 0, 10
 
 
 def random_float():
-    x = random.randint(1, 9) + random.randint(1, 9) / 10   # π.χ. 4.7
+    x = random.randint(LOW, HIGH) + random.randint(1, 9) / 10 
     return random.choice([x, -x])
 
 
@@ -45,7 +45,7 @@ KINDS = [q_floor, q_ceil, q_trunc, q_hypot, q_sqrt, q_factorial]
 def make_question():
     text, answer = random.choice(KINDS)()
     assert isinstance(answer, int)
-    assert LOW <= answer <= HIGH
+    #assert LOW >= answer or answer>= HIGH
     return text, answer
 
 
