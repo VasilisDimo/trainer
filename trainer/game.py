@@ -1,15 +1,19 @@
 from trainer.errors import BadAnswer, OutOfRange, GameOver
-from trainer.questions import make_question, LOW, HIGH
+from trainer.questions import make_question, LOW, HIGH, random_float
+
+
+
 
 def read_answer(text, low=LOW, high=HIGH):
     try:
         e = int(text)
     except ValueError:
         raise BadAnswer(f"{text} δεν είναι ακέραιος")
-    if low >= e or e>= high:
+
+    if not low <= e <= high:
         raise OutOfRange(e, low, high)
-    else:
-        return text
+
+    return e
 
 def play(rounds=5, max_mistakes=3):
     score = 0
@@ -17,8 +21,8 @@ def play(rounds=5, max_mistakes=3):
     for i in range(1, rounds + 1):
         text, answer = make_question()
         try:
-            a = input(f"ΓΡΑΨΕ ΕΝΑΝ ΑΡΙΘΜΟ ΑΠΟ {LOW} ΕΩΣ {HIGH}:")
-            read_answer(a)                    
+            a = input(f"{text} =")
+            a = read_answer(a)                
         except BadAnswer as e:
             print("Δεν μετραει", e)
             mistakes +=1                

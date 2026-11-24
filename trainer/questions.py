@@ -1,13 +1,12 @@
 import math
 import random
 
-LOW, HIGH = 0, 10
-
+LOW = 1
+HIGH = 10
 
 def random_float():
-    x = random.randint(LOW, HIGH) + random.randint(1, 9) / 10 
+    x = random.randint(LOW, HIGH) + random.randint(1, 9) / 10  
     return random.choice([x, -x])
-
 
 def q_floor():
     x = random_float()
@@ -25,17 +24,17 @@ def q_trunc():
 
 
 def q_hypot():
-    k = random.randint(1, 9)
+    k = random.randint(LOW, HIGH)
     return f"math.hypot(3 * {k}, 4 * {k})", int(math.hypot(3 * k, 4 * k))
 
 
 def q_sqrt():
-    n = random.randint(2, 30)
+    n = random.randint(LOW, HIGH)
     return f"math.sqrt({n * n})", int(math.sqrt(n * n))
 
 
 def q_factorial():
-    n = random.randint(3, 6)
+    n = random.randint(LOW, HIGH)
     return f"math.factorial({n})", math.factorial(n)
 
 
@@ -45,7 +44,7 @@ KINDS = [q_floor, q_ceil, q_trunc, q_hypot, q_sqrt, q_factorial]
 def make_question():
     text, answer = random.choice(KINDS)()
     assert isinstance(answer, int)
-    #assert LOW >= answer or answer>= HIGH
+    #assert LOW <= answer and answer <= HIGH
     return text, answer
 
 
